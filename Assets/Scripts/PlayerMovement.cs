@@ -15,14 +15,17 @@ public class PlayerMovement : MonoBehaviour
     private float store;
     Boolean isFirePressed;
     float horizontal;
-    Boolean isJumpPressed;
+    private Boolean isJumpPressed;
+    private Boolean leftClimb;
+    private Boolean rightClimb; 
+    public Animator anim;
 
 
     void Start()
     {
       rb = GetComponent<Rigidbody2D>();
         store = rb.gravityScale;
-    }
+    }  
 
     private void Update()
     {
@@ -31,6 +34,35 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            // Alternate climb states on button press
+            if (rightClimb)
+            {
+                rightClimb = false;
+                leftClimb = true;
+                anim.SetBool("rightClimb", rightClimb);
+                anim.SetBool("leftClimb", leftClimb);
+            }
+            else if (leftClimb)
+            {
+                leftClimb = false;
+                rightClimb = true;
+                anim.SetBool("rightClimb", rightClimb);
+                anim.SetBool("leftClimb", leftClimb);
+            }
+
+            else
+            {
+                leftClimb = false;
+                rightClimb = true;
+                anim.SetBool("rightClimb", rightClimb);
+                anim.SetBool("leftClimb", leftClimb);
+            }
+           
+
+            // Update animator states
+            //anim.SetBool("rightClimb", rightClimb);
+            //anim.SetBool("leftClimb", leftClimb);
+
             isFirePressed = true;
 
         }
@@ -43,15 +75,17 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("Jump")){
+        if (Input.GetButtonDown("Jump"))
+        {
             isJumpPressed = true;
-            
 
+            // Reset climbing states on jump
+            
         }
+
         if (Input.GetButtonUp("Jump"))
         {
             isJumpPressed = false;
-            
 
         }
 
@@ -97,6 +131,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            anim.SetBool("isClimbing", false);
+
         }
     }
 

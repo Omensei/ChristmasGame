@@ -39,29 +39,24 @@ public class PlayerMovement : MonoBehaviour
             {
                 rightClimb = false;
                 leftClimb = true;
-                anim.SetBool("rightClimb", rightClimb);
-                anim.SetBool("leftClimb", leftClimb);
             }
             else if (leftClimb)
             {
                 leftClimb = false;
                 rightClimb = true;
-                anim.SetBool("rightClimb", rightClimb);
-                anim.SetBool("leftClimb", leftClimb);
+              
             }
 
             else
             {
                 leftClimb = false;
                 rightClimb = true;
-                anim.SetBool("rightClimb", rightClimb);
-                anim.SetBool("leftClimb", leftClimb);
             }
            
 
             // Update animator states
-            //anim.SetBool("rightClimb", rightClimb);
-            //anim.SetBool("leftClimb", leftClimb);
+            anim.SetBool("rightClimb", rightClimb);
+            anim.SetBool("leftClimb", leftClimb);
 
             isFirePressed = true;
 

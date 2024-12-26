@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private Boolean leftClimb;
     private Boolean rightClimb; 
     public Animator anim;
+    public TMP_Text winText;
+    public Button button;
 
 
     void Start()
@@ -84,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+
     }
 
     private void FixedUpdate()
@@ -139,6 +145,23 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = store;
             Debug.Log($"Gravity restored to: {store}");
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if(collision.tag== "Win")
+        {
+            winText.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        if(collision.tag == "Enemy")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+
     }
 }
 
